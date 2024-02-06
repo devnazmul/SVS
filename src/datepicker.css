@@ -1,0 +1,44 @@
+/* custom-datepicker-styles.css */
+/* Use more specific selectors */
+body .custom-datepicker .react-datepicker-wrapper {
+  font-family: Arial, sans-serif; /* Set the font family */
+}
+
+body .custom-datepicker .react-datepicker {
+  border: 1px solid #e5e7eb; /* Light gray border */
+  border-radius: 4px; /* Rounded corners */
+}
+
+body .custom-datepicker .react-datepicker__header {
+  background-color: #f3f4f6; /* Light gray */
+  color: #1f2937; /* Dark gray */
+}
+
+body .custom-datepicker .react-datepicker__day-name,
+body .custom-datepicker .react-datepicker__day,
+body .custom-datepicker .react-datepicker__time-name {
+  color: #1f2937; /* Dark gray */
+}
+
+body .custom-datepicker .react-datepicker__day--selected,
+body .custom-datepicker .react-datepicker__day--keyboard-selected {
+  background-color: #e5e7eb; /* Light gray */
+  color: #1f2937; /* Dark gray */
+}
+
+body .custom-datepicker .react-datepicker__day--in-selecting-range,
+body .custom-datepicker .react-datepicker__day--in-range {
+  background-color: #e5e7eb; /* Light gray */
+  color: #1f2937; /* Dark gray */
+}
+
+body .custom-datepicker .react-datepicker__day--in-disabled-range,
+body .custom-datepicker .react-datepicker__day--disabled {
+  background-color: #f3f4f6; /* Light gray */
+  color: #d1d5db; /* Light gray (lighter shade) */
+}
+
+body .custom-datepicker .react-datepicker__day--today {
+  background-color: #fde68a; /* Light yellow */
+  color: #1f2937; /* Dark gray */
+}

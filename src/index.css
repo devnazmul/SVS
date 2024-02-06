@@ -1,0 +1,364 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+/* @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;0,9..40,1000;1,9..40,200&display=swap"); */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* CUSTOM DEISY UI  */
+.tabs-boxed {
+  @apply bg-primary;
+}
+
+.tab-active {
+  background: #0573b3 !important;
+  color: #fff !important;
+}
+.tab {
+  @apply text-base-100;
+}
+
+* {
+  font-family: "Roboto Condensed", sans-serif;
+  /* font-family: "DM Sans", sans-serif; */
+}
+/* CUSTOM CSS  */
+html {
+  scroll-behavior: smooth;
+}
+.pdfviewer-toolbar {
+  display: none;
+}
+/* CUSTOM SCROLLBAR  */
+.scrollbar::-webkit-scrollbar {
+  background-color: #dddddd !important;
+  width: 5px;
+  border-radius: 30px;
+}
+.scrollbar::-webkit-scrollbar-button {
+  display: none;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: #000;
+  border-radius: 30px;
+}
+/* CUSTOM SCROLLBAR X-AXIS */
+.scrollbarX::-webkit-scrollbar {
+  background-color: #dddddd !important;
+  width: 5px;
+  height: 5px;
+  border-radius: 30px;
+}
+.scrollbarX::-webkit-scrollbar-button {
+  display: none;
+}
+.scrollbarX::-webkit-scrollbar-thumb {
+  background-color: #db2780;
+  border-radius: 30px;
+}
+.addCustomerPopup-content::-webkit-scrollbar {
+  background-color: #dddddd !important;
+  width: 5px;
+  border-radius: 30px;
+}
+.addCustomerPopup-content::-webkit-scrollbar-button {
+  display: none;
+}
+.addCustomerPopup-content::-webkit-scrollbar-thumb {
+  background-color: #db2780;
+  border-radius: 30px;
+}
+
+.scrollbarVer::-webkit-scrollbar {
+  background-color: #dddddd !important;
+  width: 5px;
+  height: 5px;
+  border-radius: 30px;
+}
+.scrollbarVer::-webkit-scrollbar-button {
+  display: none;
+}
+.scrollbarVer::-webkit-scrollbar-thumb {
+  background-color: #db2780;
+  border-radius: 30px;
+}
+
+/* REACT DATE PICKER  */
+.react-datepicker__popover {
+  background-color: red;
+}
+
+.activeNavLink span .icon {
+  color: #fff;
+}
+
+/* CUSTOM POPUP  */
+.addCustomerPopup-content {
+  overflow: hidden;
+  border: 3px solid #fff;
+  overflow-y: auto;
+  box-shadow: 1px 1px 5px #333;
+  width: 500px;
+  height: 400px;
+  border-radius: 20px;
+  position: relative;
+}
+.addBillItemsPopup-content {
+  overflow: hidden;
+  border: 3px solid #fff;
+  overflow-y: auto;
+  box-shadow: 1px 1px 5px #333;
+  width: 500px;
+  height: 400px;
+  border-radius: 20px;
+  position: relative;
+}
+.addBillItemsInBusinessPopup-content {
+  overflow: hidden;
+  border: 3px solid #fff;
+  overflow-y: auto;
+  box-shadow: 1px 1px 5px #333;
+  width: 500px;
+  height: 550px;
+  border-radius: 20px;
+  position: relative;
+}
+.updatePendingInvoiceRemainderPopup-content {
+  @apply scrollbar;
+  border: 3px solid #fff;
+  box-shadow: 1px 1px 5px #333;
+  width: 400px;
+  height: auto;
+  min-height: 600px;
+  overflow: hidden;
+  border-radius: 20px;
+  position: relative;
+  background-color: #fafafa;
+}
+.addPropertyPopup-content {
+  border: 3px solid #fff;
+  overflow-y: auto;
+  box-shadow: 1px 1px 5px #333;
+  width: 500px;
+  height: 550px;
+  border-radius: 20px;
+  position: relative;
+}
+
+/* ICON CSS  */
+.icon-radio-icon [type="radio"] {
+  display: none;
+}
+
+.icoRadio:checked + .iconLable {
+  background: #2fb1f7;
+  box-shadow: 2px 2px 7px #49bfff;
+  color: #fff;
+  border-color: #008bd6;
+}
+
+.iconLable {
+  box-shadow: 2px 2px 7px #ccc;
+  color: #888;
+}
+
+@media (max-width: 700px) {
+  .addCustomerPopup-content {
+    width: 90%;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.swal2-confirm {
+  background-color: rgb(216, 0, 0) !important;
+}
+
+.scrollbarHide::-webkit-scrollbar {
+  display: none;
+}
+
+.custom-datepicker {
+  position: relative;
+}
+
+.react-datepicker__calendar-container {
+  position: absolute;
+  top: 100%; /* This pushes the calendar below the input field */
+  left: 0;
+}
+.single-line-div {
+  white-space: nowrap;
+  overflow: hidden; /* Optional: Hide overflow if the content exceeds the div's width */
+}
+
+.scroll-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.scroll-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0.3; /* Set the default opacity */
+}
+
+.scroll-page.active {
+  opacity: 1; /* Set the opacity for the active page */
+}
+.high-zindex {
+  z-index: 9999 !important;
+}
+.ql-editor {
+  height: 300px !important;
+}
+.pop-content::before {
+  content: "";
+  height: 30px;
+  width: 100%;
+  position: absolute;
+  top: -10px;
+  border-radius: 5px;
+  /* background-image: url("/assets/popupheader.svg"); */
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.node__root > circle {
+  @apply fill-primary-content;
+  @apply stroke-primary;
+  @apply hover:fill-primary;
+  transition-duration: 0.5s;
+  stroke-width: 1;
+}
+
+.node__branch > circle {
+  @apply fill-primary-content;
+  @apply stroke-primary;
+  @apply hover:fill-primary;
+  transition-duration: 0.5s;
+  stroke-width: 1;
+}
+
+.node__leaf > circle {
+  @apply fill-primary-content;
+  @apply stroke-primary;
+  @apply hover:fill-primary;
+  transition-duration: 0.5s;
+  stroke-width: 1;
+  r: 5;
+}
+.rd3t-label__title {
+  fill: red;
+}
+
+/* REMOVE TAILEIND STYLE  */
+.default-styles-container h1 {
+  display: block;
+  font-size: 2em;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.default-styles-container h2 {
+  display: block;
+  font-size: 1.5em;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.default-styles-container h3 {
+  display: block;
+  font-size: 1.17em;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.default-styles-container h4 {
+  display: block;
+  font-size: 1em;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.default-styles-container h5 {
+  display: block;
+  font-size: 0.83em;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.default-styles-container h4 {
+  display: block;
+  font-size: 0.67em;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: b0;
+}
+.default-styles-container p {
+  display: block;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+.default-styles-container ul {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px; /* Adjust as needed */
+}
+
+.default-styles-container ol {
+  display: block;
+  list-style-type: decimal;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px; /* Adjust as needed */
+}
+
+.default-styles-container li {
+  display: list-item;
+  text-align: -webkit-match-parent; /* Safari/Chrome specific */
+  margin-bottom: 0.2em; /* Adjust as needed */
+}
+.input-disabled,
+.input:disabled,
+.input[disabled] {
+  background-color: transparent;
+}

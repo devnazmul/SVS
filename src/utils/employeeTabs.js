@@ -1,0 +1,16 @@
+export const employeeTabs = [
+  "personal_details",
+  "leave_allowance",
+  "attendance",
+  "leave",
+  "documents",
+  "assets",
+  "education_history",
+  "job_history",
+  "immigration_details",
+  "address_details",
+  "contact",
+  "notes",
+  "social_links",
+  "bank_details",
+];
