@@ -15,6 +15,7 @@ import CustomMultiSelect from "../../components/InputFields/CustomMultiSelect.js
 import { nationality } from "../../constant/nationality.js";
 import CustomDatePicker from "../../components/InputFields/CustomDatePicker.jsx";
 import { getAllStudentStatusWithoutPerPage } from "../../apis/studentStatus/studentStatus.js";
+import { getAllCourseTitleWithoutPerPage } from "../../apis/courseTitle/courseTitle.js";
 
 export default function CreateAndUpdateStudent({
   handleClosePopup,
@@ -33,7 +34,8 @@ export default function CreateAndUpdateStudent({
     date_of_birth: "",
     course_start_date: "",
     letter_issue_date: "",
-    student_status_id: 1,
+    course_title_id: null,
+    student_status_id: null,
     attachments: [],
   });
 
@@ -56,6 +58,7 @@ export default function CreateAndUpdateStudent({
             course_start_date: res?.course_start_date || "",
             letter_issue_date: res?.letter_issue_date || "",
             student_status_id: res?.student_status_id || null,
+            course_title_id: res?.course_title_id || null,
             attachments: res?.attachments || [],
           });
           setIsGettingData(false);
@@ -115,6 +118,38 @@ export default function CreateAndUpdateStudent({
   };
   useEffect(() => {
     getAllStudentStatus();
+  }, []);
+
+  // GETTING COURSE TITLE
+  const [courseTitle, setCourseTitle] = useState([]);
+  const [isLoadingCourseTitle, setIsLoadingCourseTitle] = useState(true);
+  const getAllCourseTitle = () => {
+    setIsLoadingCourseTitle(true);
+    // GETTING COURSE TITLE
+    getAllCourseTitleWithoutPerPage()
+      .then((res) => {
+        setCourseTitle(
+          res
+            ?.filter((ct) => ct?.is_active)
+            .map((ct) => ({ id: ct?.id, label: ct?.name }))
+        );
+        setIsLoadingCourseTitle(false);
+      })
+      .catch((error) => {
+        console.log({ 103: error });
+        setIsLoadingCourseTitle(false);
+        toast.custom((t) => (
+          <CustomToaster
+            t={t}
+            type={"error"}
+            text={`ID: #00119 - ${error?.response?.data?.message}`}
+            errors={error?.response?.data?.errors}
+          />
+        ));
+      });
+  };
+  useEffect(() => {
+    getAllCourseTitle();
   }, []);
 
   // CHECK EMAIL
@@ -198,6 +233,11 @@ export default function CreateAndUpdateStudent({
     // STUDENT STATUS
     if (!formData.student_status_id) {
       newErrors.student_status_id = "Student status is required";
+    }
+
+    // COURSE TITLE
+    if (!formData.course_title_id) {
+      newErrors.course_title_id = "Course title is required";
     }
 
     setErrors(newErrors);
@@ -304,21 +344,7 @@ export default function CreateAndUpdateStudent({
             wrapperClassName={"w-full"}
             required={true}
           />
-          {/* MIDDLE NAME  */}
-          {/* <CustomField
-            defaultValue={formData?.middle_name}
-            disable={false}
-            error={errors?.middle_name}
-            fieldClassName={"w-full"}
-            id={"middle_name"}
-            label={"Middle Name"}
-            name={"middle_name"}
-            onChange={handleFormChange}
-            placeholder={"Middle Name"}
-            type={"text"}
-            wrapperClassName={"w-full"}
-            required={false}
-          /> */}
+
           {/* LAST NAME  */}
           <CustomField
             defaultValue={formData?.last_name}
@@ -427,6 +453,25 @@ export default function CreateAndUpdateStudent({
             required={true}
           />
 
+          {/* STUDENT STATUS  */}
+          <CustomMultiSelect
+            error={errors?.course_title_id}
+            loading={isLoadingCourseTitle}
+            options={courseTitle}
+            label={"Select Course Title"}
+            defaultSelectedValues={courseTitle.filter((ct, index) => {
+              return ct?.id === formData?.course_title_id;
+            })}
+            singleSelect
+            required
+            onSelect={(e) => {
+              setFormData({
+                ...formData,
+                course_title_id: e[0]?.id || null,
+              });
+            }}
+          />
+
           {/* COURSE START DATE  */}
           <CustomDatePicker
             value={formData?.course_start_date}
@@ -467,58 +512,6 @@ export default function CreateAndUpdateStudent({
             wrapperClassName={"w-full"}
             required={true}
           />
-
-          {/* <CustomUploadFilesOneByOne
-            files={formData?.attachments}
-            isFileUploading={isFileUploading}
-            setFiles={async (e) => {
-              const imageArray = Object.values(e?.file?.target?.files);
-              imageArray?.map((file_url, index) => {
-                if (file_url) {
-                  setIsFileUploading(true);
-                  uploadStudentSingleFile(file_url)
-                    .then((res) => {
-                      const newFormData = formData?.attachments;
-                      newFormData.push(res?.full_location);
-                      setFormData({ ...formData, attachments: newFormData });
-                      setIsFileUploading(false);
-                    })
-                    .catch((error) => {
-                      console.log({ 188: error });
-                      setIsFileUploading(false);
-                      toast.custom((t) => (
-                        <CustomToaster
-                          t={t}
-                          type={"error"}
-                          text={`ID: #00119 - ${error?.response?.data?.message}`}
-                          errors={error?.response?.data?.errors}
-                        />
-                      ));
-                    });
-                }
-              });
-            }}
-            onDrop={(e) => console.log({ e })}
-            onRemove={(e) => {
-              setFormData({
-                ...formData,
-                attachments: formData?.attachments?.filter((img) => img !== e),
-              });
-            }}
-          /> */}
-          {/* PASSWORD */}
-          {/* <CustomPasswordField
-            required={true}
-            label={"Password"}
-            id="password"
-            onChange={handleFormChange}
-            value={formData?.password}
-            placeholder={`Password`}
-            name={`password`}
-            error={errors?.password}
-            wrapperClassName={`w-full`}
-            fieldClassName={`w-full`}
-          /> */}
         </div>
 
         {/* ACTION BUTTONS  */}

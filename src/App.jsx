@@ -8,13 +8,13 @@ import Login from "./pages/Auth/Login";
 import ChangePassword from "./pages/Auth/ChangePassword";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import PublicLayout from "./layout/PublicLayout";
-import JobDetailsPublic from "./pages/JobDesk/JobDetailsPublic";
 import AllStudentStatus from "./pages/Student/StudentStatus/AllStudentStatus";
 import AllStudents from "./pages/Student/AllStudents";
 import AllStaffs from "./pages/Staff/AllStaffs";
 import ViewStudent from "./pages/Student/ViewStudent";
 import ViewStudentPublic from "./pages/Student/ViewStudentPublic";
 import StudentVerification from "./pages/StudentVerification/StudentVerification";
+import AllCourseTile from "./pages/Student/CourseTile/AllCourseTile";
 
 const App = () => {
   return (
@@ -25,24 +25,21 @@ const App = () => {
 
         {/* DASHBOARD ROUTES  */}
         <Route path="/" element={<ManagerLayout />}>
-          {/* DASHBOARD  */}
-          {/* <Route index element={<Dashboard />} /> */}
-
           {/* PROFILE  */}
           <Route path="profile" element={<ViewProfile />} />
 
           {/* STUDENTS  */}
           <Route index element={<AllStudents />} />
-          {/* <Route path="student/all-students" element={<AllStudents />} /> */}
           <Route path="student/view/:encId" element={<ViewStudent />} />
 
           {/* STUDENT STATUS  */}
           <Route path="student-status" element={<AllStudentStatus />} />
 
+          {/* COURSE TITLE  */}
+          <Route path="course-title" element={<AllCourseTile />} />
+
           {/* STAFF  */}
           <Route path="staffs" element={<AllStaffs />} />
-
-          {/* <Route path="stuff/all-staffs" element={<AllStaffs />} /> */}
         </Route>
 
         {/* PUBLIC ROUTES  */}

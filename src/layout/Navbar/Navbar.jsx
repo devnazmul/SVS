@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from "react";
-import DarkmodeToggler from "../../components/DarkmodeToggler";
-import { FiUser } from "react-icons/fi";
-import { BsFillGearFill } from "react-icons/bs";
-import { HiBell } from "react-icons/hi";
-import Headings from "../../components/Headings/Headings";
 import { useAuth, useNav } from "../../context/AuthContext";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import SidebarGenerator from "../../utils/SidebarGenerator";
 import { menus } from "../../constant/menus";
 import { OutsideClickHandler } from "../../components/OutsideClickHandler";
 import { RiUser6Line } from "react-icons/ri";
-import { IoNotificationsOutline } from "react-icons/io5";
-import { TbLogout2, TbSettings2 } from "react-icons/tb";
+import { TbLogout2 } from "react-icons/tb";
 import { getFullImageLink } from "../../utils/getFullImageLink";
-import { usePermission } from "../../context/PermissionContext";
 import { formatRole } from "../../utils/formatRole";
 import {
   changeNotificationStatus,
@@ -21,10 +14,6 @@ import {
 } from "../../apis/notification/notification";
 import toast from "react-hot-toast";
 import CustomToaster from "../../components/CustomToaster";
-import CustomLoading from "../../components/CustomLoading";
-import moment from "moment";
-import { formatOrRelativeTime } from "../../utils/formatOrRetriveTimeFromDate";
-import NotificationRow from "../../pages/Notification/NotificationRow";
 
 export default function Navbar() {
   const { setLogout } = useAuth();

@@ -22,6 +22,14 @@ export const STUDENT_STATUS_UPDATE = "student_status_update";
 export const STUDENT_STATUS_VIEW = "student_status_view";
 export const STUDENT_STATUS_DELETE = "student_status_delete";
 
+// ==================================
+// COURSE TITLE RELATED
+// ==================================
+export const COURSE_TITLE_CREATE = "course_title_create";
+export const COURSE_TITLE_UPDATE = "course_title_update";
+export const COURSE_TITLE_VIEW = "course_title_view";
+export const COURSE_TITLE_DELETE = "course_title_delete";
+
 // ========================================================
 // ========================================================
 // ========================================================

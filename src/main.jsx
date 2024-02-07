@@ -16,7 +16,6 @@ import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { LoadScript } from "@react-google-maps/api";
 import { PermissionProvider } from "./context/PermissionContext";
-import { routes } from "./routes/Routes/Routes";
 import CustomLoading from "./components/CustomLoading";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./calendar.css";
@@ -30,7 +29,6 @@ axios.defaults.baseURL = `${import.meta.env.VITE_BASE_URL}`;
 const queryClient = new QueryClient();
 
 // REACT ROUTER
-const router = createBrowserRouter(routes);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Headings from "../../../components/Headings/Headings";
-import { getSingleUsers } from "../../../apis/userAndBusiness/user";
 import toast from "react-hot-toast";
 import CustomToaster from "../../../components/CustomToaster";
 import CustomLoading from "../../../components/CustomLoading";
 import { useAuth } from "../../../context/AuthContext";
-import CustomPopup from "../../../components/CustomPopup";
-import AssignLeave from "../../Leave/CreateLeave";
 import PersonalDetails from "./ProfileView/PersonalDetails/PersonalDetails";
 import ProfileMenu from "./ProfileView/ProfileMenu";
 import ProfileViewHeader from "./ViewProfileComponents/ProfileViewHeader";
-import ActivityLog from "./ProfileView/ActivityLog/ActivityLog";
 import ChangeProfilePassword from "./ProfileView/ChangeProfilePassword/ChangeProfilePassword";
 import BusinessDetails from "./ProfileView/BusinessDetails/BusinessDetails";
 import BusinessTiming from "./ProfileView/BusinessTiming/BusinessTiming";
@@ -22,7 +18,6 @@ export default function ViewProfile() {
 
   const [userInfo, setUserInfo] = useState({});
   const [formData, setFormData] = useState();
-  const [formDataForBusiness, setFormDataForBusiness] = useState();
 
   const [menu, setMenu] = useState("");
   const [isGettingData, setIsGettingData] = useState(true);
@@ -87,83 +82,12 @@ export default function ViewProfile() {
     closeOnDocumentClick: false,
   });
   // ALL ACTION BUTTONS
-  const options = [
-    {
-      title: "Add attandance",
-      handler: () => {
-        setPopupOption({
-          open: true,
-          type: "addAttandance",
-          onClose: () => {
-            setPopupOption({ ...popupOption, open: false });
-          },
-          id: null,
-          closeOnDocumentClick: false,
-        });
-      },
-    },
-    {
-      title: "Create leave",
-      handler: () => {
-        setPopupOption({
-          open: true,
-          type: "assignLeave",
-          title: "Create Leave",
-          onClose: () => {
-            setPopupOption({ ...popupOption, open: false });
-          },
-          id: null,
-          closeOnDocumentClick: false,
-        });
-      },
-    },
-    {
-      title: "Terminate",
-      handler: () => {},
-    },
-    {
-      title: "Edit salary",
-      handler: () => {},
-    },
-    {
-      title: "Edit joining date",
-      handler: () => {},
-    },
-  ];
+
   if (isGettingData) {
     return <CustomLoading />;
   } else {
     return (
       <div>
-        {/* POPUPS  */}
-        <CustomPopup
-          popupClasses={`w-[70vw]`}
-          popupOption={popupOption}
-          setPopupOption={setPopupOption}
-          Component={
-            <>
-              {popupOption?.type === "assignLeave" && (
-                <AssignLeave
-                  employeeId={popupOption?.id}
-                  handleClosePopup={() => {
-                    setPopupOption({
-                      open: false,
-                      type: "",
-                      id: null,
-                      onClose: () => {
-                        setPopupOption({ ...popupOption, open: false });
-                        setIsUpdated(Math.random());
-                      },
-                      overlayStyle: { background: "red" },
-                      closeOnDocumentClick: false,
-                    });
-                  }}
-                />
-              )}
-            </>
-          }
-        />
-
         <div className="flex items-center justify-between">
           <Headings className={`mb-5`} level={1}>
             My profile

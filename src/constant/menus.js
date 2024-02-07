@@ -127,10 +127,15 @@ import {
   STUDENT_STATUS_UPDATE,
   STUDENT_STATUS_VIEW,
   STUDENT_STATUS_DELETE,
+  COURSE_TITLE_CREATE,
+  COURSE_TITLE_UPDATE,
+  COURSE_TITLE_VIEW,
+  COURSE_TITLE_DELETE,
 } from "./permissions";
 import { HiOutlinePaperClip, HiPaperClip } from "react-icons/hi";
 import {
   FaChartPie,
+  FaGraduationCap,
   FaIdBadge,
   FaUserGraduate,
   FaUserTie,
@@ -140,15 +145,6 @@ import { MdVerified } from "react-icons/md";
 
 export const menus = ({ permissions, userData }) => {
   return [
-    // DASHBOARD
-    // {
-    //   title: "Dashboard",
-    //   link: "/",
-    //   Icon: FaChartPie,
-    //   childrens: [],
-    //   show: true,
-    // },
-
     // STUDENT
     {
       title: "Students",
@@ -160,6 +156,26 @@ export const menus = ({ permissions, userData }) => {
       ),
       childrens: [],
     },
+
+    // COURSE TITLE
+    {
+      title: "Course Title",
+      link: "/course-title",
+      Icon: FaGraduationCap,
+      childrens: [],
+      // show: checkPermissions(
+      //   [
+      //     COURSE_TITLE_CREATE,
+      //     COURSE_TITLE_UPDATE,
+      //     COURSE_TITLE_VIEW,
+      //     COURSE_TITLE_DELETE,
+
+      //   ],
+      //   permissions
+      // ),
+      show: true,
+    },
+
     // STUDENT STATUS
     {
       title: "Student Status",
@@ -177,14 +193,6 @@ export const menus = ({ permissions, userData }) => {
       ),
     },
 
-    // STUDENT VERIFICATION
-    // {
-    //   title: "Student Verification",
-    //   link: "/student-verification",
-    //   Icon: MdVerified,
-    //   childrens: [],
-    //   show: checkPermissions([STUDENT_VIEW], permissions),
-    // },
     // STAFF
     {
       title: "Staffs",

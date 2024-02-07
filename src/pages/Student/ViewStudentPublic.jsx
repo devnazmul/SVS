@@ -29,6 +29,7 @@ import QRCode from "react-qr-code";
 import html2canvas from "html2canvas";
 import GoBackButton from "../../components/GoBackButton";
 import { formatRole } from "../../utils/formatRole";
+import { getAllCourseTitleWithoutPerPagePublic } from "../../apis/courseTitle/courseTitle";
 
 export default function ViewStudentPublic() {
   const { encId, businessEncId } = useParams();
@@ -48,6 +49,7 @@ export default function ViewStudentPublic() {
     course_start_date: "",
     letter_issue_date: "",
     student_status_id: null,
+    course_title_id: null,
     attachments: [],
   });
 
@@ -119,175 +121,38 @@ export default function ViewStudentPublic() {
     getAllStudentStatus();
   }, []);
 
-  // //   CHANGE TIMING DATA
-  // const onChangeTimingData = (e) => {
-  //   const name = e.target.name;
-  //   const value = e.target.value;
+  // GETTING COURSE TITLE
+  const [courseTitle, setCourseTitle] = useState([]);
+  const [isLoadingCourseTitle, setIsLoadingCourseTitle] = useState(true);
+  const getAllCourseTitle = () => {
+    setIsLoadingCourseTitle(true);
+    // GETTING COURSE TITLE
+    getAllCourseTitleWithoutPerPagePublic()
+      .then((res) => {
+        setCourseTitle(
+          res
+            ?.filter((ct) => ct?.is_active)
+            .map((ct) => ({ id: ct?.id, label: ct?.name }))
+        );
+        setIsLoadingCourseTitle(false);
+      })
+      .catch((error) => {
+        console.log({ 103: error });
+        setIsLoadingCourseTitle(false);
+        toast.custom((t) => (
+          <CustomToaster
+            t={t}
+            type={"error"}
+            text={`ID: #00119 - ${error?.response?.data?.message}`}
+            errors={error?.response?.data?.errors}
+          />
+        ));
+      });
+  };
+  useEffect(() => {
+    getAllCourseTitle();
+  }, []);
 
-  //   setTimingData((prevFormData) => ({
-  //     ...prevFormData,
-  //     [name]: value,
-  //   }));
-  // };
-
-  // // VALIDATION
-  // const [errorsForUser, setErrorsForUser] = useState({});
-  // const [errorsForBusiness, setErrorsForBusiness] = useState({});
-  // const [errorsForTiming, setErrorsForTiming] = useState({});
-  // const validateUser = () => {
-  //   const newErrorsForUser = {};
-  //   // USER DATA VALIDATION
-  //   // =============================
-  //   // Validate first name
-  //   if (
-  //     !formDataForUser.first_Name ||
-  //     formDataForUser.first_Name.trim() === ""
-  //   ) {
-  //     newErrorsForUser.first_Name = "First name is required";
-  //   }
-  //   // Validate last name
-  //   if (!formDataForUser.last_Name || formDataForUser.last_Name.trim() === "") {
-  //     newErrorsForUser.last_Name = "First name is required";
-  //   }
-  //   // Validate email
-  //   if (!formDataForUser.email || formDataForUser.email.trim() === "") {
-  //     newErrorsForUser.email = "Email is required";
-  //   } else if (
-  //     !/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/i.test(
-  //       formDataForUser.email.trim()
-  //     )
-  //   ) {
-  //     newErrorsForUser.email = "Invalid email";
-  //   }
-  //   // Validate phone
-  //   if (formDataForUser.phone) {
-  //     if (formDataForUser?.phone.toString().split("").length !== 11) {
-  //       newErrorsForUser.phone = "Phone must be 11 digit";
-  //     }
-  //   }
-  //   setErrorsForUser(newErrorsForUser);
-  //   // Return true if there are no errors
-  //   return Object.keys(newErrorsForUser).length === 0;
-  // };
-  // const validateBusiness = () => {
-  //   const newErrorsForBusiness = {};
-  //   // Validate business name
-  //   if (!formDataForBusiness.name || formDataForBusiness.name.trim() === "") {
-  //     newErrorsForBusiness.name = "Business name is required";
-  //   }
-  //   // Validate address
-  //   if (
-  //     !formDataForBusiness.address_line_1 ||
-  //     formDataForBusiness.address_line_1.trim() === ""
-  //   ) {
-  //     newErrorsForBusiness.address_line_1 = "Address is required";
-  //   }
-  //   // Validate lat
-  //   if (!formDataForBusiness.lat || formDataForBusiness.lat.trim() === "") {
-  //     newErrorsForBusiness.lat = "Lat is required";
-  //   }
-  //   // Validate long
-  //   if (!formDataForBusiness.long || formDataForBusiness.long.trim() === "") {
-  //     newErrorsForBusiness.long = "Long is required";
-  //   }
-  //   // Validate country
-  //   if (
-  //     !formDataForBusiness.country ||
-  //     formDataForBusiness.country.trim() === ""
-  //   ) {
-  //     newErrorsForBusiness.country = "Country is required";
-  //   }
-  //   // Validate city
-  //   if (!formDataForBusiness.city || formDataForBusiness.city.trim() === "") {
-  //     newErrorsForBusiness.city = "City is required";
-  //   }
-  //   // Validate currency
-  //   if (
-  //     !formDataForBusiness.currency ||
-  //     formDataForBusiness.currency.trim() === ""
-  //   ) {
-  //     newErrorsForBusiness.currency = "Currency is required";
-  //   }
-  //   // Validate postcode
-  //   if (
-  //     !formDataForBusiness.postcode ||
-  //     formDataForBusiness.postcode.trim() === ""
-  //   ) {
-  //     newErrorsForBusiness.postcode = "Postcode is required";
-  //   }
-  //   // Validate phone
-  //   if (formDataForBusiness.phone) {
-  //     if (formDataForBusiness?.phone.toString().split("").length !== 11) {
-  //       newErrorsForBusiness.phone = "Business phone must be 11 digit";
-  //     }
-  //   }
-  //   // Validate email
-  //   if (formDataForBusiness.email) {
-  //     if (
-  //       !/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/i.test(
-  //         formDataForBusiness.email.trim()
-  //       )
-  //     ) {
-  //       newErrorsForBusiness.email = "Invalid email";
-  //     }
-  //   }
-  //   // BUSINESS WEB PAGE
-  //   if (formDataForBusiness.web_page) {
-  //     const urlPattern =
-  //       /^https?:\/\/([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}(\/[A-Za-z0-9-._%+&=]*)*$/i;
-  //     if (!urlPattern.test(formDataForBusiness.web_page.trim())) {
-  //       newErrorsForBusiness.web_page = "Invalid web page URL";
-  //     }
-  //   }
-  //   setErrorsForBusiness(newErrorsForBusiness);
-  //   // Return true if there are no errors
-  //   return Object.keys(newErrorsForBusiness).length === 0;
-  // };
-
-  // // FORM CHANGE HANDLE
-  // const handleUserFormChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormDataForUser({
-  //     ...formDataForUser,
-  //     [name]: value,
-  //   });
-  // };
-  // const handleBusinessFormChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormDataForBusiness({
-  //     ...formDataForBusiness,
-  //     [name]: value,
-  //   });
-  // };
-  // // HANDLE SAVE DATA
-  // const [isPendingSubmit, setIsPendingSubmit] = useState(false);
-
-  // const handleSaveData = () => {
-  //   if (validateUser() && validateBusiness() && validateTiming()) {
-  //     setIsPendingSubmit(true);
-  //     updateSingleUserWithBusiness({
-  //       user: formDataForUser,
-  //       business: formDataForBusiness,
-  //       times: formDataForBusinessTiming,
-  //     })
-  //       .then((res) => {
-  //         setIsPendingSubmit(false);
-  //         setIsEditEnabled(false);
-  //       })
-  //       .catch((error) => {
-  //         console.log({ 188: error });
-  //         setIsPendingSubmit(false);
-  //         toast.custom((t) => (
-  //           <CustomToaster
-  //             t={t}
-  //             type={"error"}
-  //             text={`ID: #00119 - ${error?.response?.data?.message}`}
-  //             errors={error?.response?.data?.errors}
-  //           />
-  //         ));
-  //       });
-  //   }
-  // };
   const qrCodeRef = useRef(null);
 
   const downloadQRCode = async () => {
@@ -368,6 +233,26 @@ export default function ViewStudentPublic() {
             // required
             onSelect={(e) => {
               setFormData({ ...formData, student_status_id: e[0]?.id });
+            }}
+            disable
+          />
+
+          {/* COURSE TITLE  */}
+          <CustomMultiSelect
+            error={errors?.course_title_id}
+            loading={isLoadingCourseTitle}
+            options={courseTitle}
+            label={"Select Course Title"}
+            defaultSelectedValues={courseTitle.filter((ct, index) => {
+              return ct?.id === formData?.course_title_id;
+            })}
+            singleSelect
+            // required
+            onSelect={(e) => {
+              setFormData({
+                ...formData,
+                course_title_id: e[0]?.id || null,
+              });
             }}
             disable
           />

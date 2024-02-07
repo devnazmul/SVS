@@ -26,6 +26,7 @@ import QRCode from "react-qr-code";
 import html2canvas from "html2canvas";
 import GoBackButton from "../../components/GoBackButton";
 import { useAuth } from "../../context/AuthContext";
+import { getAllCourseTitleWithoutPerPage } from "../../apis/courseTitle/courseTitle";
 
 export default function ViewStudent() {
   const { encId } = useParams();
@@ -47,6 +48,7 @@ export default function ViewStudent() {
     course_start_date: "",
     letter_issue_date: "",
     student_status_id: null,
+    course_title_id: null,
     attachments: [],
   });
 
@@ -76,6 +78,7 @@ export default function ViewStudent() {
             course_start_date: res?.course_start_date || "",
             letter_issue_date: res?.letter_issue_date || "",
             student_status_id: res?.student_status_id,
+            course_title_id: res?.course_title_id,
           }));
           setIsGettingData(false);
         })
@@ -136,6 +139,38 @@ export default function ViewStudent() {
     getAllStudentStatus();
   }, []);
 
+  // GETTING COURSE TITLE
+  const [courseTitle, setCourseTitle] = useState([]);
+  const [isLoadingCourseTitle, setIsLoadingCourseTitle] = useState(true);
+  const getAllCourseTitle = () => {
+    setIsLoadingCourseTitle(true);
+    // GETTING COURSE TITLE
+    getAllCourseTitleWithoutPerPage()
+      .then((res) => {
+        setCourseTitle(
+          res
+            ?.filter((ct) => ct?.is_active)
+            .map((ct) => ({ id: ct?.id, label: ct?.name }))
+        );
+        setIsLoadingCourseTitle(false);
+      })
+      .catch((error) => {
+        console.log({ 103: error });
+        setIsLoadingCourseTitle(false);
+        toast.custom((t) => (
+          <CustomToaster
+            t={t}
+            type={"error"}
+            text={`ID: #00119 - ${error?.response?.data?.message}`}
+            errors={error?.response?.data?.errors}
+          />
+        ));
+      });
+  };
+  useEffect(() => {
+    getAllCourseTitle();
+  }, []);
+
   // VALIDATION
   const [errors, setErrors] = useState({});
   const validateForm = () => {
@@ -176,6 +211,9 @@ export default function ViewStudent() {
     }
     if (!formData.student_status_id) {
       newErrors.student_status_id = "Student status is required";
+    }
+    if (!formData.course_title_id) {
+      newErrors.course_title_id = "Course title is required";
     }
 
     setErrors(newErrors);
@@ -447,6 +485,43 @@ export default function ViewStudent() {
                 type={"text"}
                 wrapperClassName={"w-full"}
                 required={editModeOn}
+              />
+
+              {/* STUDENT STATUS  */}
+              <CustomMultiSelect
+                error={errors?.course_title_id}
+                loading={isLoadingStudentStatuses || isGettingData}
+                options={studentStatuses}
+                label={editModeOn ? "Select Student Status" : "Student Status"}
+                defaultSelectedValues={studentStatuses.filter((ss, index) => {
+                  return ss?.id === formData?.course_title_id;
+                })}
+                singleSelect
+                required={editModeOn}
+                onSelect={(e) => {
+                  setFormData({ ...formData, course_title_id: e[0]?.id });
+                }}
+                disable={!editModeOn}
+              />
+
+              {/* COURSE TITLE  */}
+              <CustomMultiSelect
+                error={errors?.course_title_id}
+                loading={isLoadingCourseTitle}
+                options={courseTitle}
+                label={"Select Course Title"}
+                defaultSelectedValues={courseTitle.filter((ct, index) => {
+                  return ct?.id === formData?.course_title_id;
+                })}
+                singleSelect
+                required={editModeOn}
+                onSelect={(e) => {
+                  setFormData({
+                    ...formData,
+                    course_title_id: e[0]?.id || null,
+                  });
+                }}
+                disable={!editModeOn}
               />
 
               {/* COURSE START DATE  */}
