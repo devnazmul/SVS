@@ -127,8 +127,9 @@ export default function ViewStudentPublic() {
   const getAllCourseTitle = () => {
     setIsLoadingCourseTitle(true);
     // GETTING COURSE TITLE
-    getAllCourseTitleWithoutPerPagePublic()
+    getAllCourseTitleWithoutPerPagePublic({ business_id: business_id })
       .then((res) => {
+        console.log({ res });
         setCourseTitle(
           res
             ?.filter((ct) => ct?.is_active)
