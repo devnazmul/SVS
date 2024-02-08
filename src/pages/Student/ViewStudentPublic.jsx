@@ -71,6 +71,7 @@ export default function ViewStudentPublic() {
             school_id: res?.school_id || "",
             date_of_birth: res?.date_of_birth || "",
             course_start_date: res?.course_start_date || "",
+            course_title_id: res?.course_title_id || "",
             letter_issue_date: res?.letter_issue_date || "",
             student_status_id: res?.student_status_id,
           }));
@@ -129,7 +130,6 @@ export default function ViewStudentPublic() {
     // GETTING COURSE TITLE
     getAllCourseTitleWithoutPerPagePublic({ business_id: business_id })
       .then((res) => {
-        console.log({ res });
         setCourseTitle(
           res
             ?.filter((ct) => ct?.is_active)
@@ -238,22 +238,27 @@ export default function ViewStudentPublic() {
             disable
           />
 
+          {console.log({
+            formData,
+            courseTitle: courseTitle.filter((ct, index) => {
+              return ct?.id === formData?.course_title_id;
+            }),
+          })}
+
+          {console.log({ courseTitle })}
           {/* COURSE TITLE  */}
           <CustomMultiSelect
             error={errors?.course_title_id}
-            loading={isLoadingCourseTitle}
+            loading={isLoadingCourseTitle || isGettingData}
             options={courseTitle}
-            label={"Select Course Title"}
-            defaultSelectedValues={courseTitle.filter((ct, index) => {
-              return ct?.id === formData?.course_title_id;
+            label={"Course Title"}
+            defaultSelectedValues={courseTitle.filter((ss, index) => {
+              return ss?.id === formData?.course_title_id;
             })}
             singleSelect
             // required
             onSelect={(e) => {
-              setFormData({
-                ...formData,
-                course_title_id: e[0]?.id || null,
-              });
+              setFormData({ ...formData, course_title_id: e[0]?.id });
             }}
             disable
           />

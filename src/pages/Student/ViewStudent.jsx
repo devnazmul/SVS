@@ -488,7 +488,7 @@ export default function ViewStudent() {
               />
 
               {/* STUDENT STATUS  */}
-              <CustomMultiSelect
+              {/* <CustomMultiSelect
                 error={errors?.course_title_id}
                 loading={isLoadingStudentStatuses || isGettingData}
                 options={studentStatuses}
@@ -502,7 +502,7 @@ export default function ViewStudent() {
                   setFormData({ ...formData, course_title_id: e[0]?.id });
                 }}
                 disable={!editModeOn}
-              />
+              /> */}
 
               {/* COURSE TITLE  */}
               <CustomMultiSelect

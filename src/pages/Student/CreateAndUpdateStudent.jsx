@@ -434,6 +434,7 @@ export default function CreateAndUpdateStudent({
 
           {/* DATE OF BIRTH  */}
           <CustomDatePicker
+            left
             value={formData?.date_of_birth}
             disable={false}
             format="dd-MM-yyyy"
@@ -446,7 +447,6 @@ export default function CreateAndUpdateStudent({
               setFormData({ ...formData, date_of_birth: date });
             }}
             top
-            left
             placeholder={"Date Of Birth"}
             type={"text"}
             wrapperClassName={"w-full"}
@@ -486,7 +486,7 @@ export default function CreateAndUpdateStudent({
               setFormData({ ...formData, course_start_date: date });
             }}
             top
-            right
+            left
             placeholder={"Course Start Date"}
             type={"text"}
             wrapperClassName={"w-full"}
@@ -507,6 +507,7 @@ export default function CreateAndUpdateStudent({
               setFormData({ ...formData, letter_issue_date: date });
             }}
             top
+            right
             placeholder={"Letter Issue Date"}
             type={"text"}
             wrapperClassName={"w-full"}
